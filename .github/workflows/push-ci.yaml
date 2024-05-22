@@ -70,7 +70,7 @@ jobs:
           path: ./
       - name: docker-login
         run: |
-          echo $PASSWORD | docker login docker.io/inspurwyd -u $USERNAME --password-stdin
+          docker login -u ${{ secrets.USERNAME }} -p ${{ secrets.PASSWORD }} registry.hub.docker.com
       - name: Build and save docker images
         id: build-images
         run: |
