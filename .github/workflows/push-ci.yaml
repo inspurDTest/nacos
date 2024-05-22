@@ -16,7 +16,7 @@ env:
   DOCKER_REPO: docker.io/inspurwyd/nacos
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   PASSWORD: ${{ secrets.PASSWORD }}
-  USERNAME: ${{ secrets.PASSWORD }}
+  USERNAME: ${{ secrets.USERNAME }}
 
 jobs:
   dist-tar:
