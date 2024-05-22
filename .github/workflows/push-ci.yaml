@@ -70,10 +70,8 @@ jobs:
           path: ./
       - name: docker-login
         uses: docker/login-action@v2
-        with:
-          registry: docker.io/inspurwyd
-          username: $USERNAME
-          password: $PASSWORD
+        run: |
+          echo $PASSWORD | docker login docker.io/inspurwyd -u $USERNAME --password-stdin
       - name: Build and save docker images
         id: build-images
         run: |
