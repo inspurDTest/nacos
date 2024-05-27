@@ -58,12 +58,13 @@ jobs:
       matrix:
         base-image: ["centos"]
         java-version: ["8"]
+        arch: ["amd64", "arm64"]
     outputs:
       version-json: ${{ steps.show_versions.outputs.version-json }}
     steps:
       - uses: actions/checkout@v3
         with:
-          repository: nacos-group/nacos-e2e.git
+          repository: inspurDTest/nacos-e2e.git
           ref: main
           path: nacos-e2e
       - uses: actions/download-artifact@v3
@@ -91,8 +92,9 @@ jobs:
           mkdir build_backup
           cp -rf nacos-e2e/cicd/build/* ./build_backup/
           cd nacos-e2e/cicd/build
-          docker build --no-cache -f Dockerfile -t ${DOCKER_REPO}:${{ env.TAG }} .
-          docker push ${DOCKER_REPO}:${{ env.TAG }}
+          docker buildx create --use
+          docker buildx build --platform linux/${{ matrix.arch }} -f Dockerfile -t ${DOCKER_REPO}:${{ env.TAG }}-${{ matrix.arch }} .
+          docker push ${DOCKER_REPO}:${{ env.TAG }}-${{ matrix.arch }}
       - name: docker-login-2
         uses: docker/login-action@v2
         with:
