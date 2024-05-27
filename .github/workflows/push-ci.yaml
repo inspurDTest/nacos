@@ -93,7 +93,7 @@ jobs:
           cp -rf nacos-e2e/cicd/build/* ./build_backup/
           cd nacos-e2e/cicd/build
           docker buildx create --use
-          docker buildx build --platform linux/${{ matrix.arch }} -f Dockerfile -t ${DOCKER_REPO}:${{ env.TAG }}-${{ matrix.arch }} .
+          docker buildx build --no-cache  --platform linux/${{ matrix.arch }} -f Dockerfile -t ${DOCKER_REPO}:${{ env.TAG }}-${{ matrix.arch }} .
           docker push ${DOCKER_REPO}:${{ env.TAG }}-${{ matrix.arch }}
       - name: docker-login-2
         uses: docker/login-action@v2
