@@ -2,7 +2,7 @@ name: PUSH-CI
 
 on:
   push:
-    branches: [master, develop, v1.x-develop, v1.X]
+    branches: [master, develop, v1.x-develop, 2.3.2]
 
 permissions:
   contents: read
@@ -11,10 +11,11 @@ concurrency:
   group: nacos-${{ github.ref }}
 
 env:
-  DOCKER_REPO: wuyfeedocker/nacos-ci
-  DOCKER_REPO_B: wuyfeehub/nacos-ci
+  DOCKER_REPO: docker.io/inspurwyd/nacos
+  DOCKER_REPO_B: docker.io/inspurwyd/nacos
   TEST_REPO_NAME: nacos-group/nacos-e2e
-
+  PASSWORD: ${{ secrets.PASSWORD }}
+  USERNAME: ${{ secrets.USERNAME }}
 jobs:
   dist-tar:
     name: Build dist tar
@@ -83,9 +84,8 @@ jobs:
       - name: docker-login-1
         uses: docker/login-action@v2
         with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ secrets.DOCKERHUB_USER }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
       - name: save docker_1 images
         run: |
           mkdir build_backup
