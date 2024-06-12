@@ -366,6 +366,7 @@ public class InstanceController {
         result.put("clusterName", cluster);
         result.put("weight", instance.getWeight());
         result.put("healthy", instance.isHealthy());
+        result.put("enabled", instance.isEnabled());
         result.put("instanceId", instance.getInstanceId());
         result.set(METADATA, JacksonUtils.transferToJsonNode(instance.getMetadata()));
         return result;
