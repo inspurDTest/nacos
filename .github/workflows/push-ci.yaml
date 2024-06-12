@@ -83,11 +83,12 @@ jobs:
           ls versionlist/
           echo TAG=${version}-$(echo ${{ matrix.java-version }} | sed -e "s/:/-/g") >> $GITHUB_ENV
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v3
       - name: Login to Docker
         run: |
            docker login --username=${{ secrets.USERNAME_ALI }} registry.cn-hangzhou.aliyuncs.com -p ${{ secrets.PASSWORD_ALI }}
       - name: save docker_1 images
+        uses: docker/build-push-action@v4
         run: |
           mkdir build_backup
           cp -rf nacos-e2e/cicd/build/* ./build_backup/
