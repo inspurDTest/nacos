@@ -82,7 +82,7 @@ jobs:
           touch versionlist/"${version}-`echo ${{ matrix.java-version }} | sed -e "s/:/-/g"`"
           ls versionlist/
           echo TAG=${version}-$(echo ${{ matrix.java-version }} | sed -e "s/:/-/g") >> $GITHUB_ENV	  
-	    - name: Login to Docker
+      - name: Login to Docker
         run: |
            docker login --username=${{ secrets.USERNAME_ALI }} registry.cn-hangzhou.aliyuncs.com -p ${{ secrets.PASSWORD_ALI }}
       - name: save docker_1 images
@@ -98,4 +98,3 @@ jobs:
           a=(`ls nacos-e2e/cicd/build/versionlist`)
           printf '%s\n' "${a[@]}" | jq -R . | jq -s .
           echo version-json=`printf '%s\n' "${a[@]}" | jq -R . | jq -s .` >> $GITHUB_OUTPUT
-  
