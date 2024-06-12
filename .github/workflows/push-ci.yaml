@@ -81,7 +81,9 @@ jobs:
           mkdir versionlist
           touch versionlist/"${version}-`echo ${{ matrix.java-version }} | sed -e "s/:/-/g"`"
           ls versionlist/
-          echo TAG=${version}-$(echo ${{ matrix.java-version }} | sed -e "s/:/-/g") >> $GITHUB_ENV	  
+          echo TAG=${version}-$(echo ${{ matrix.java-version }} | sed -e "s/:/-/g") >> $GITHUB_ENV
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
       - name: Login to Docker
         run: |
            docker login --username=${{ secrets.USERNAME_ALI }} registry.cn-hangzhou.aliyuncs.com -p ${{ secrets.PASSWORD_ALI }}
