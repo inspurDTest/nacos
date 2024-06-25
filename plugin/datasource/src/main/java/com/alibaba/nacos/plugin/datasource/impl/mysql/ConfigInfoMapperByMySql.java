@@ -254,6 +254,7 @@ public class ConfigInfoMapperByMySql extends AbstractMapper implements ConfigInf
             where.append(" AND content LIKE ? ");
             paramList.add(content);
         }
+        System.out.println("where sql in mysql:" + where.toString());
         return new MapperResult(sqlFetchRows + where + " LIMIT " + context.getStartRow() + "," + context.getPageSize(),
                 paramList);
     }
