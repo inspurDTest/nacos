@@ -238,7 +238,7 @@ public class ConfigInfoMapperByMySql extends AbstractMapper implements ConfigInf
         paramList.add(tenant);
         
         if (!StringUtils.isBlank(dataId)) {
-            where.append(" AND data_id LIKE ? ESCAPE '|' ");
+            where.append(" AND data_id LIKE ? ");
             paramList.add(dataId);
             
         }
@@ -254,10 +254,10 @@ public class ConfigInfoMapperByMySql extends AbstractMapper implements ConfigInf
             where.append(" AND content LIKE ? ");
             paramList.add(content);
         }
-        System.out.println("where sql in mysql:" + where.toString());
-        for (int i = 0; i < paramList.size(); i++) {
-            System.out.println("param:" + paramList.get(i));
-        }
+       // System.out.println("where sql in mysql:" + where.toString());
+       // for (int i = 0; i < paramList.size(); i++) {
+          //  System.out.println("param:" + paramList.get(i));
+       // }
         return new MapperResult(sqlFetchRows + where + " LIMIT " + context.getStartRow() + "," + context.getPageSize(),
                 paramList);
     }
