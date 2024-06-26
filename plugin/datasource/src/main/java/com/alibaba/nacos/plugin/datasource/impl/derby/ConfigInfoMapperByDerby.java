@@ -261,6 +261,9 @@ public class ConfigInfoMapperByDerby extends AbstractMapper implements ConfigInf
                 sqlFetchRows + where + " OFFSET " + context.getStartRow() + " ROWS FETCH NEXT " + context.getPageSize()
                         + " ROWS ONLY";
         System.out.println("where sql in derby is :" + sql);
+        for (int i = 0; i < paramList.size(); i++) {
+            System.out.println("param:" + paramList.get(i));
+        }
         return new MapperResult(sql, paramList);
     }
     
