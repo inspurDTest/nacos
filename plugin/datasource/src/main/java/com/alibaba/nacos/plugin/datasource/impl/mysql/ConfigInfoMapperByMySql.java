@@ -238,7 +238,7 @@ public class ConfigInfoMapperByMySql extends AbstractMapper implements ConfigInf
         paramList.add(tenant);
         
         if (!StringUtils.isBlank(dataId)) {
-            where.append(" AND data_id LIKE ? ");
+            where.append(" AND data_id LIKE ? ESCAPE '|' ");
             paramList.add(dataId);
             
         }
