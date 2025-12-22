@@ -57,7 +57,7 @@ jobs:
     strategy:
       matrix:
         base-image: ["centos"]
-        java-version: ["8"]
+        java-version: ["17"]
         arch: ["amd64", "arm64"]
     outputs:
       version-json: ${{ steps.show_versions.outputs.version-json }}
