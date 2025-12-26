@@ -81,7 +81,6 @@ public class NamespaceController {
      * @return namespace all info
      */
     @GetMapping(params = "show=all")
-    @Secured(resource = AuthConstants.CONSOLE_RESOURCE_NAME_PREFIX + "namespaces", action = ActionTypes.READ)
     public Namespace getNamespace(@RequestParam("namespaceId") String namespaceId) throws NacosException {
         return namespaceOperationService.getNamespace(namespaceId);
     }
