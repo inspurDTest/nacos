@@ -124,6 +124,12 @@ public class NacosRoleServiceImpl {
         if (AuthConstants.UPDATE_PASSWORD_ENTRY_POINT.equals(permission.getResource().getName())) {
             return true;
         }
+
+        // Allow all authenticated users to read namespaces
+        if ((AuthConstants.CONSOLE_RESOURCE_NAME_PREFIX + "namespaces").equals(permission.getResource().getName())
+                && ActionTypes.READ.toString().equals(permission.getAction())) {
+            return true;
+        }
         
         List<RoleInfo> roleInfoList = getRoles(nacosUser.getUserName());
         if (CollectionUtils.isEmpty(roleInfoList)) {
