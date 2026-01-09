@@ -24,7 +24,6 @@ import com.alibaba.nacos.persistence.model.Page;
 import com.alibaba.nacos.core.utils.Loggers;
 import com.alibaba.nacos.plugin.auth.api.Permission;
 import com.alibaba.nacos.plugin.auth.api.Resource;
-import com.alibaba.nacos.plugin.auth.constant.ActionTypes;
 import com.alibaba.nacos.plugin.auth.constant.Constants;
 import com.alibaba.nacos.plugin.auth.constant.SignType;
 import com.alibaba.nacos.plugin.auth.impl.constant.AuthConstants;
@@ -128,7 +127,7 @@ public class NacosRoleServiceImpl {
 
         // Allow all authenticated users to read namespaces
         if ((AuthConstants.CONSOLE_RESOURCE_NAME_PREFIX + "namespaces").equals(permission.getResource().getName())
-                && ActionTypes.READ.toString().equals(permission.getAction())) {
+                && "r".equals(permission.getAction())) {
             return true;
         }
         
