@@ -57,6 +57,8 @@ import static com.alibaba.nacos.api.common.Constants.DEFAULT_NAMESPACE_ID;
 public class NacosRoleServiceImpl {
     
     private static final int DEFAULT_PAGE_NO = 1;
+
+    private static final String READ_ACTION = "r";
     
     @Autowired
     private AuthConfigs authConfigs;
@@ -126,8 +128,7 @@ public class NacosRoleServiceImpl {
         }
 
         // Allow all authenticated users to read namespaces
-        if ((AuthConstants.CONSOLE_RESOURCE_NAME_PREFIX + "namespaces").equals(permission.getResource().getName())
-                && "r".equals(permission.getAction())) {
+        if (isNamespaceReadPermission(permission)) {
             return true;
         }
         
@@ -312,5 +313,16 @@ public class NacosRoleServiceImpl {
         List<RoleInfo> roles = getRoles(userName);
         
         return roles.stream().anyMatch(roleInfo -> AuthConstants.GLOBAL_ADMIN_ROLE.equals(roleInfo.getRole()));
+    }
+
+    /**
+     * Check if the permission is for reading namespaces.
+     *
+     * @param permission permission to check
+     * @return true if it's a namespace read permission
+     */
+    private boolean isNamespaceReadPermission(Permission permission) {
+        return (AuthConstants.CONSOLE_RESOURCE_NAME_PREFIX + "namespaces").equals(permission.getResource().getName())
+                && READ_ACTION.equals(permission.getAction());
     }
 }
